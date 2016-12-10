@@ -11,7 +11,37 @@
     tools:context="com.hassan.nbagamereminder.MainActivity">
 
     <TextView
+        android:id="@+id/helloTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="NBA Standings!" />
+
+    <Switch
+        android:id="@+id/east_west_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/helloTV"
+        android:paddingTop="10dp"
+        android:text="Change Conference"
+        android:textOn="WEST"
+        android:textOff="EAST"/>
+
+    <TextView
+        android:id="@+id/conference_nameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/east_west_toggle"
+        android:text="TEST Conference Standing"
+        android:paddingTop="10dp"/>
+    
+    <ListView
+        android:id="@+id/standings_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/conference_nameTV"
+        android:dividerHeight="1dp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp">
+
+    </ListView>
 </RelativeLayout>
