@@ -10,38 +10,78 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.hassan.nbagamereminder.MainActivity">
 
+
+
     <TextView
         android:id="@+id/helloTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NBA Standings!" />
+        android:text="@string/helloTV"
+        android:layout_weight="1"/>
 
-    <Switch
-        android:id="@+id/east_west_toggle"
+
+
+
+    <RadioGroup
+        android:id="@+id/conferenceRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/helloTV"
-        android:paddingTop="10dp"
-        android:text="Change Conference"
-        android:textOn="WEST"
-        android:textOff="EAST"/>
+        android:paddingTop="20dp"
+        >
+
+        <RadioButton
+            android:id="@+id/easternRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/easternRadioBtn"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/westernRadioBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/westernRadioBtn" />
+
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/set_game_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/setReminderBtn"
+        android:textAllCaps="false"
+        android:drawableLeft="@drawable/ic_action_calendar_day"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 
     <TextView
         android:id="@+id/conference_nameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/east_west_toggle"
         android:text="TEST Conference Standing"
-        android:paddingTop="10dp"/>
-    
+        android:paddingTop="30dp"
+        android:gravity="center"
+        android:layout_below="@+id/conferenceRadioGroup"
+        android:layout_centerHorizontal="true" />
+
     <ListView
         android:id="@+id/standings_ListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/conference_nameTV"
+        android:layout_below="@+id/conference_nameTV"
         android:dividerHeight="1dp"
         android:padding="10dp"
         android:layout_marginTop="10dp">
 
     </ListView>
+
+
+
+
+
+
 </RelativeLayout>

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">NBAGameReminder</string>
+    <string name="helloTV">View conference standings \n or set up a game reminder</string>
+    <string name="instructionTV">Select an up coming game to set reminder</string>
+    <string name="removeFilterBtn">Delete filter</string>
+    <string name="filterByTeamBtn">Filter by team</string>
+    <string name="setReminderBtn">Set reminder</string>
+    <string name="easternRadioBtn">Eastern</string>
+    <string name="westernRadioBtn">Western</string>
 </resources>

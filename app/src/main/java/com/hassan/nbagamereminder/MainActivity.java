@@ -1,17 +1,23 @@
 package com.hassan.nbagamereminder;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,13 +38,18 @@ public class MainActivity extends AppCompatActivity {
     private TextView helloTV;
     private ListView standingListView;
     private ProgressDialog progressDialog;
-    private Switch confrenceSwitch;
+    private ToggleButton confrenceSwitch;
     public TextView conferenceTextView;
+    public Button setUpGameReminer;
+    public RadioButton easternRadioBtn;
+    public RadioButton westerRadioBtn;
+    public RadioGroup conferenceRadioGroup;
     public boolean westConferenceSwitchChecked;
 
 
     public String TAG = "DebugMain";
     public String url = "https://www.erikberg.com/nba/standings.json";
+
 
 
     //an array list of hashmaps of nba team standings
@@ -50,56 +61,80 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        //refrenace view components
+        //initialize view components
         helloTV = (TextView) findViewById(R.id.helloTV);
         standingListView = (ListView) findViewById(R.id.standings_ListView);
         conferenceTextView = (TextView) findViewById(R.id.conference_nameTV);
+        setUpGameReminer = (Button) findViewById(R.id.set_game_reminder);
+
 
         //switch
-        confrenceSwitch = (Switch) findViewById(R.id.east_west_toggle);
-        confrenceSwitch.setChecked(true);
-        westConferenceSwitchChecked = true;
-        conferenceTextView.setText("WESTERN CONFERENCE STANDINGS");
+        //confrenceSwitch = (ToggleButton) findViewById(R.id.east_west_toggle);
+        //confrenceSwitch.setChecked(true);
+        easternRadioBtn = (RadioButton) findViewById(R.id.easternRadioBtn);
+        westerRadioBtn = (RadioButton) findViewById(R.id.westernRadioBtn);
+        conferenceRadioGroup = (RadioGroup) findViewById(R.id.conferenceRadioGroup);
+        //easternRadioBtn.isChecked();
+        westConferenceSwitchChecked = false;
+        conferenceTextView.setText("Eastern CONFERENCE STANDINGS");
+
+
 
         //initialize arraylist of hash maps
         nbaStandingsList = new ArrayList<>();
 
-        RequestStandings staningTask = new RequestStandings();
-        staningTask.execute();
+        RequestStandings standingTask = new RequestStandings();
+        standingTask.execute();
         Log.d(TAG, "WE START");
-        //when switch toggle is clicked
-        confrenceSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b)
-                {
-                    westConferenceSwitchChecked = true;
-                    nbaStandingsList.clear();
-                    RequestStandings staningTask = new RequestStandings();
-                    staningTask.execute();
-                    conferenceTextView.setText("WESTERN CONFERENCE STANDINGS");
 
 
-
-
-
-                }
-                else
-                {
-                    westConferenceSwitchChecked = false;
-                    nbaStandingsList.clear();
-                    RequestStandings staningTask = new RequestStandings();
-                    staningTask.execute();
-                    Log.d(TAG, "JUST CLEARED FOR TRUE EAST TEST");
-                    conferenceTextView.setText("EASTERN CONFERENCE STANDINGS");
-
-
+        conferenceRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId){
+                    case R.id.westernRadioBtn:
+                        // do operations specific to this selection
+                        westConferenceSwitchChecked = true;
+                        nbaStandingsList.clear();
+                        RequestStandings standingTask = new RequestStandings();
+                        standingTask.execute();
+                        conferenceTextView.setText("WESTERN CONFERENCE STANDINGS");
+                        break;
+                    case R.id.easternRadioBtn:
+                        // do operations specific to this selection
+                        westConferenceSwitchChecked = false;
+                        nbaStandingsList.clear();
+                        RequestStandings standingTask2 = new RequestStandings();
+                        standingTask2.execute();
+                        Log.d(TAG, "JUST CLEARED FOR TRUE EAST TEST");
+                        conferenceTextView.setText("EASTERN CONFERENCE STANDINGS");
+                        break;
 
                 }
             }
         });
 
+
+
+
+
+
+
+        //when set game reminder button is clicked
+        setUpGameReminer.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent view_game_schedule = new Intent(getApplicationContext(), GamesScheduleActivity.class);
+                startActivity(view_game_schedule);
+
+            }
+        });
+
     }
+
+
 
     //innerclass get json data
     private class RequestStandings extends AsyncTask<Void, Void, Void>

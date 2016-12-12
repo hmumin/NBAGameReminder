@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout"
+        android:id="@+id/linearLayout2"
+        android:layout_gravity="center">
+
+
+        <TextView
+            android:id="@+id/vistorTeamTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/timeGame"
+            android:text="Minnesota Timberwolves"
+            android:textStyle="bold"
+            android:typeface="sans"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/middleVsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vs."
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textStyle="bold|italic"
+            android:typeface="sans"/>
+
+        <TextView
+            android:id="@+id/homeTeamTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vistorTeamTV"
+            android:text="Minnesota Timberwolves"
+            android:textStyle="bold"
+            android:typeface="sans"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/dateGame"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sun Dec 4 2016 "
+        android:textSize="16sp"
+        android:layout_gravity="center"/>
+    <TextView
+        android:id="@+id/timeGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dateGame"
+        android:text="6:00pm"
+        android:textSize="14sp"
+        android:layout_gravity="center"/>
+
+
+</LinearLayout>
