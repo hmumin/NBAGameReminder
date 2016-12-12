@@ -3,6 +3,7 @@ package com.hassan.nbagamereminder;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.CalendarContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,12 +32,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class GamesScheduleActivity extends AppCompatActivity {
 
-    public Spinner filtergamesListSpinner;
-    public EditText searchListViewEditText;
-    public Spinner teamsFilterSpinner;
+
     public Button filterByTeamBtn;
     public Button deleteFilterBtn;
 
@@ -70,7 +70,7 @@ public class GamesScheduleActivity extends AppCompatActivity {
         //set listview to xml
         gamesScheduleListView = (ListView) findViewById(R.id.upcomingGames_ListView);
 
-        //create adapter and pass array of questions to it
+        //create adapter and pass array of games to it
         adapter = new GameAdapter(this,gamesScheduleItems);
 
         //set the listView adapter
@@ -126,21 +126,33 @@ public class GamesScheduleActivity extends AppCompatActivity {
                 String gameDate = gamedateTv.getText().toString();
                 String gameTime = gameTimeTv.getText().toString();
 
+
+
+                String dateAndTimeofGame = gameDate + " " + gameTime;
+                SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM d yyyy h:mm a");
+                Date gameDateAndTime = null;
+                try {
+                    gameDateAndTime = formatter.parse(dateAndTimeofGame);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Log.d(TAG, "TST: " + gameDateAndTime);
+
                 //add clicked game item to user calendar
                 Calendar cal = Calendar.getInstance();
                 Intent intent = new Intent(Intent.ACTION_EDIT);
                 intent.setType("vnd.android.cursor.item/event");
-                intent.putExtra("beginTime", cal.getTimeInMillis());
+                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, gameDateAndTime.getTime());
+                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, gameDateAndTime.getTime());
                 intent.putExtra("allDay", false);
-                intent.putExtra("rrule", "FREQ=DAILY");
-                intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
-                intent.putExtra("title", visitorTeam + " vs " + homeTeam);
+                intent.putExtra("title", visitorTeam + " Vs. " + homeTeam + " at " + gameTime
+                                                + " on " + gameDate);
+                intent.putExtra("description", "Watch NBA game " + visitorTeam + " vs " +
+                        homeTeam + " at " + gameTime);
                 startActivity(intent);
 
-
-
-
-
+                Log.d(TAG, "TIME: " + gameTime);
 
             }
         });
@@ -178,8 +190,8 @@ public class GamesScheduleActivity extends AppCompatActivity {
     public void fetchGames()
     {
         //Fetch data from FireBase to add to listView
-        Query getAllQuestions = dbReference.child(ALL_GAMES_KEY);
-        getAllQuestions.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query getAllGames = dbReference.child(ALL_GAMES_KEY);
+        getAllGames.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //arrayList of all games
@@ -187,9 +199,6 @@ public class GamesScheduleActivity extends AppCompatActivity {
                 {
                     //Log.d(TAG, "ds: " + ds);
                     Game game = ds.getValue(Game.class);
-                    //get the questions key from firebase and set it to the question object
-                    //question.setKey(ds.getKey());
-                    //Log.d(TAG, "question and key: " + question.getQuestion() + " " + question.getKey());
                     games.add(game);
                 }
 
