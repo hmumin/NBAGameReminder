@@ -38,13 +38,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView helloTV;
     private ListView standingListView;
     private ProgressDialog progressDialog;
-    private ToggleButton confrenceSwitch;
     public TextView conferenceTextView;
     public Button setUpGameReminer;
     public RadioButton easternRadioBtn;
     public RadioButton westerRadioBtn;
     public RadioGroup conferenceRadioGroup;
-    public boolean westConferenceSwitchChecked;
+    public boolean westConferenceRadioBtnChecked;
 
 
     public String TAG = "DebugMain";
@@ -68,15 +67,13 @@ public class MainActivity extends AppCompatActivity {
         setUpGameReminer = (Button) findViewById(R.id.set_game_reminder);
 
 
-        //switch
-        //confrenceSwitch = (ToggleButton) findViewById(R.id.east_west_toggle);
-        //confrenceSwitch.setChecked(true);
+        //initialize radio buttons
         easternRadioBtn = (RadioButton) findViewById(R.id.easternRadioBtn);
         westerRadioBtn = (RadioButton) findViewById(R.id.westernRadioBtn);
         conferenceRadioGroup = (RadioGroup) findViewById(R.id.conferenceRadioGroup);
         //easternRadioBtn.isChecked();
-        westConferenceSwitchChecked = false;
-        conferenceTextView.setText("Eastern CONFERENCE STANDINGS");
+        westConferenceRadioBtnChecked = false;
+        conferenceTextView.setText("EASTERN CONFERENCE STANDINGS");
 
 
 
@@ -94,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 switch(checkedId){
                     case R.id.westernRadioBtn:
                         // do operations specific to this selection
-                        westConferenceSwitchChecked = true;
+                        westConferenceRadioBtnChecked = true;
                         nbaStandingsList.clear();
                         RequestStandings standingTask = new RequestStandings();
                         standingTask.execute();
@@ -102,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.easternRadioBtn:
                         // do operations specific to this selection
-                        westConferenceSwitchChecked = false;
+                        westConferenceRadioBtnChecked = false;
                         nbaStandingsList.clear();
                         RequestStandings standingTask2 = new RequestStandings();
                         standingTask2.execute();
@@ -182,8 +179,8 @@ public class MainActivity extends AppCompatActivity {
                         String losses = s.getString("lost");
                         String conference = s.getString("conference");
 
-                        Log.d(TAG, "INNER CHECK: " + westConferenceSwitchChecked);
-                        if(westConferenceSwitchChecked == true)
+                        Log.d(TAG, "INNER CHECK: " + westConferenceRadioBtnChecked);
+                        if(westConferenceRadioBtnChecked == true)
                         {
                             HashMap<String,String> choiceMap = new HashMap<>();
 
@@ -201,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                         }
-                        else if(westConferenceSwitchChecked == false)
+                        else if(westConferenceRadioBtnChecked == false)
                         {
                             HashMap<String,String> choiceMap = new HashMap<>();
 

@@ -42,7 +42,7 @@
             android:id="@+id/middleVsTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vs."
+            android:text="vs."
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textStyle="bold|italic"

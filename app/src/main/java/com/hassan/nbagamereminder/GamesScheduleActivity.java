@@ -39,12 +39,13 @@ public class GamesScheduleActivity extends AppCompatActivity {
 
     public Button filterByTeamBtn;
     public Button deleteFilterBtn;
-
     public ListView gamesScheduleListView;
+
+
     ArrayList<Game> gamesScheduleItems = new ArrayList<>();
     ArrayList<Game> games = new ArrayList<>();
-
     public ArrayList<String> listOfTeams = new ArrayList<>();
+
     ArrayAdapter<String> filterByteamBtnAdapter;
 
 
@@ -61,10 +62,6 @@ public class GamesScheduleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_games_schedule);
-
-
-
-
 
 
         //set listview to xml
@@ -137,7 +134,7 @@ public class GamesScheduleActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Log.d(TAG, "TST: " + gameDateAndTime);
+                Log.d(TAG, "Date and time: " + gameDateAndTime);
 
                 //add clicked game item to user calendar
                 Calendar cal = Calendar.getInstance();
@@ -150,6 +147,7 @@ public class GamesScheduleActivity extends AppCompatActivity {
                                                 + " on " + gameDate);
                 intent.putExtra("description", "Watch NBA game " + visitorTeam + " vs " +
                         homeTeam + " at " + gameTime);
+
                 startActivity(intent);
 
                 Log.d(TAG, "TIME: " + gameTime);

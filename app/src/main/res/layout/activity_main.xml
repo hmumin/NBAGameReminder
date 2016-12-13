@@ -20,8 +20,6 @@
         android:layout_weight="1"/>
 
 
-
-
     <RadioGroup
         android:id="@+id/conferenceRadioGroup"
         android:layout_width="wrap_content"
